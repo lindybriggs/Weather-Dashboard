@@ -11,9 +11,17 @@
 // THEN I am again presented with current and future conditions for that city
 
 let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
-fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=${apiKey}`)
-    .then(response => response.json())
-    .then(data => {
 
-        console.log(data);
+fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
+    .then(response => response.json())
+    .then(geoData => {
+
+        return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}`)
     })
+
+    .then(response => response.json())
+    .then(cityData => {
+
+        console.log(cityData);
+    })
+
