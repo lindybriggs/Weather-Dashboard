@@ -10,6 +10,13 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
+let searchButton = document.querySelector("#search")
+let cityInput =  document.querySelector("#city")
+
+searchButton.addEventListener("click", function(){
+    console.log(cityInput.value)
+})
+
 let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
 
 fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
