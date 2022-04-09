@@ -23,12 +23,27 @@ fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
     .then(response => response.json())
     .then(geoData => {
 
-        return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}`)
+        
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}`)
     })
 
     .then(response => response.json())
     .then(cityData => {
 
         console.log(cityData);
+        pullData(cityData);
     })
 
+function pullData(cityData){
+    let array = cityData
+    console.log(cityData);
+    console.log(cityData.name);
+    console.log(cityData.main.temp);
+
+    let kelvinTemp = cityData.main.temp;
+    console.log(kelvinTemp);
+    let fTemp = ((kelvinTemp-273.15)*1.8)+32
+    console.log(fTemp);
+    let fTempRounded = Math.round(fTemp);
+    console.log(fTempRounded);
+}
