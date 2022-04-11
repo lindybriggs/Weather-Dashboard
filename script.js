@@ -71,6 +71,7 @@ function futureData(cityData){
         let temp = document.createElement("h5")
         temp.textContent = futureArray[i].temp.day + "℉"
         cardContent.appendChild(temp)
+        cardContent.classList.add("card");
 
         let humidity = document.createElement("h5")
         humidity.textContent = "humidity"
@@ -86,14 +87,24 @@ function futureData(cityData){
         cardsArea.appendChild(cardContent);
 
         cardContent.innerHTML = `
-        <div class="card col-6 col-md-2">
-            <div class="card-body">
-                <h5 class="card-title">Temp: ${futureArray[i].temp.day + "℉"}</h5>
-                <h5 class="card-title">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
-                <h5 class="card-title">Humidity: ${futureArray[i].humidity + " %"}</h5>
-            </div>
+        <div >
+        <div class="card custom-card">
+            <h3 class="card-header futureDate">hellpo</h3>
+            <i class="futureIcon"></i>
+            <h5 class="tempFuture">Temp: ${futureArray[i].temp.day + "℉"}</h5>
+            <h5 class="windFuture">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
+            <h5 class="humidityFuture">Humidity: ${futureArray[i].humidity + " %"}</h5>
         </div>
+    </div>
+
+
         `
         
     }
 }
+
+// <div class="card-body custom-card">
+// <h5 class="card-title">Temp: ${futureArray[i].temp.day + "℉"}</h5>
+// <h5 class="card-title">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
+// <h5 class="card-title">Humidity: ${futureArray[i].humidity + " %"}</h5>
+// </div>
