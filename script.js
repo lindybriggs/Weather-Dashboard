@@ -58,8 +58,10 @@ function pullCurrentData(cityData){
 
 function futureData(cityData){
     console.log(cityData.daily);
-    let futureArray = cityData.daily;
-    console.log(futureArray);
+    let futureArray8 = cityData.daily;
+    let futureArray = futureArray8.slice(1);
+    console.log(futureArray.slice(1));
+    console.log(futureArray)
 
     let cardsArea = document.querySelector("#cityFuture");
     console.log(cardsArea);
@@ -96,15 +98,6 @@ function futureData(cityData){
             <h5 class="humidityFuture">Humidity: ${futureArray[i].humidity + " %"}</h5>
         </div>
     </div>
-
-
         `
-        
     }
 }
-
-// <div class="card-body custom-card">
-// <h5 class="card-title">Temp: ${futureArray[i].temp.day + "℉"}</h5>
-// <h5 class="card-title">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
-// <h5 class="card-title">Humidity: ${futureArray[i].humidity + " %"}</h5>
-// </div>
