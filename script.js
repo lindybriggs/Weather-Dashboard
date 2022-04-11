@@ -15,7 +15,7 @@ let cityInput =  document.querySelector("#city")
 
 searchButton.addEventListener("click", function(){
     console.log(cityInput.value)
-})
+
 
 let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
 
@@ -24,26 +24,76 @@ fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
     .then(geoData => {
 
         
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}`)
+        return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}&exclude=hourly,minutely&units=imperial`)
     })
 
     .then(response => response.json())
     .then(cityData => {
 
         console.log(cityData);
-        pullData(cityData);
+        pullCurrentData(cityData);
+        futureData(cityData);
+
     })
 
-function pullData(cityData){
-    let array = cityData
-    console.log(cityData);
-    console.log(cityData.name);
-    console.log(cityData.main.temp);
+})
 
-    let kelvinTemp = cityData.main.temp;
-    console.log(kelvinTemp);
-    let fTemp = ((kelvinTemp-273.15)*1.8)+32
-    console.log(fTemp);
-    let fTempRounded = Math.round(fTemp);
-    console.log(fTempRounded);
+function pullCurrentData(cityData){
+
+    console.log(cityData);
+    console.log(cityData.current.temp);
+    console.log(cityData.current.wind_speed);
+    console.log(cityData.current.humidity);
+    console.log(cityData.current.uvi);
+
+        let currentDate = moment()
+        let date = (currentDate.format('MMM Do YY'))
+        document.querySelector("#cityCurrent").innerText = cityInput.value + ", " + date;
+
+    document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
+    document.querySelector("#wind").innerText = "Wind: " + cityData.current.wind_speed + " MPH"
+    document.querySelector("#humidity").innerText = "Humidity: " + cityData.current.humidity + " %"
+    document.querySelector("#uv").innerText = "UV Index: " + cityData.current.uvi 
+}
+
+function futureData(cityData){
+    console.log(cityData.daily);
+    let futureArray = cityData.daily;
+    console.log(futureArray);
+
+    let cardsArea = document.querySelector("#cityFuture");
+    console.log(cardsArea);
+   
+
+    for (let i = 0; i < 6; i++) {
+        let cardContent = document.createElement("div")
+
+        let temp = document.createElement("h5")
+        temp.textContent = futureArray[i].temp.day + "℉"
+        cardContent.appendChild(temp)
+
+        let humidity = document.createElement("h5")
+        humidity.textContent = "humidity"
+        cardContent.appendChild(humidity)
+        
+        let wind = document.createElement("h5")
+        wind.textContent = "wind"
+        cardContent.appendChild(wind)
+
+        console.log(futureArray[i].temp.day + "℉");
+        console.log(futureArray[i].wind_speed + " MPH");
+        console.log(futureArray[i].humidity + " %");
+        cardsArea.appendChild(cardContent);
+
+        cardContent.innerHTML = `
+        <div class="card col-6 col-md-2">
+            <div class="card-body">
+                <h5 class="card-title">Temp: ${futureArray[i].temp.day + "℉"}</h5>
+                <h5 class="card-title">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
+                <h5 class="card-title">Humidity: ${futureArray[i].humidity + " %"}</h5>
+            </div>
+        </div>
+        `
+        
+    }
 }
