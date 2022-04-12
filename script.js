@@ -12,6 +12,7 @@
 
 let searchButton = document.querySelector("#search")
 let cityInput = document.querySelector("#city")
+let historyArea = document.querySelector("#storeHistory")
 
 
 let cityHistory = [];
@@ -28,6 +29,12 @@ searchButton.addEventListener("click", function (event) {
     localStorage.setItem("searchedCity", JSON.stringify(cityHistory))
     console.log(localStorage);
     console.log(localStorage.searchedCity);
+    console.log(cityHistory);
+
+    let pastButton = document.createElement("button")
+    pastButton.textContent = cityHistory[0];
+    pastButton.classList.add("btn-light");
+    historyArea.appendChild(pastButton);
 
 
     let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
@@ -43,7 +50,8 @@ searchButton.addEventListener("click", function (event) {
         .then(response => response.json())
         .then(cityData => {
 
-            console.log(cityData);
+            // console.log(cityData);
+
             pullCurrentData(cityData);
             futureData(cityData);
 
@@ -53,19 +61,19 @@ searchButton.addEventListener("click", function (event) {
 
 function pullCurrentData(cityData) {
 
-    console.log(cityData);
-    console.log(cityData.current.weather[0].icon)
-    console.log(cityData.current.temp);
-    console.log(cityData.current.wind_speed);
-    console.log(cityData.current.humidity);
-    console.log(cityData.current.uvi);
+    // console.log(cityData);
+    // console.log(cityData.current.weather[0].icon)
+    // console.log(cityData.current.temp);
+    // console.log(cityData.current.wind_speed);
+    // console.log(cityData.current.humidity);
+    // console.log(cityData.current.uvi);
 
     let currentDate = moment()
     let date = (currentDate.format('MMM Do YY'))
     document.querySelector("#cityCurrent").innerText = cityInput.value + ", " + date;
 
     let iconUrl = `<img src= "http://openweathermap.org/img/wn/${cityData.current.weather[0].icon}@2x.png"/>`
-    console.log(iconUrl)
+    // console.log(iconUrl)
 
     document.querySelector("#currentIcon").innerHTML = iconUrl
     document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
@@ -77,7 +85,7 @@ function pullCurrentData(cityData) {
 
     if (cityData.current.uvi >= 0 && cityData.current.uvi <= 2) {
         $("#uvColor").css("background-color", "green").css("color", "white");
-    } else if (cityData.current.uvi >= 3 && cityData.current.uvi <= 5) {
+    } else if (cityData.current.uvi >= 2 && cityData.current.uvi <= 5) {
         $("#uvColor").css("background-color", "yellow").css("color", "black");
     } else {
         $("#uvColor").css("background-color", "red").css("color", "white");
@@ -89,14 +97,14 @@ function futureData(cityData) {
     let futureHeader = document.querySelector("#futureHeader");
     futureHeader.innerHTML = "5-Day Forecast";
 
-    console.log(cityData.daily);
+    // console.log(cityData.daily);
     let futureArray8 = cityData.daily;
     let futureArray = futureArray8.slice(1);
-    console.log(futureArray.slice(1));
-    console.log(futureArray)
+    // console.log(futureArray.slice(1));
+    // console.log(futureArray)
 
     let cardsArea = document.querySelector("#cityFuture");
-    console.log(cardsArea);
+    // console.log(cardsArea);
     cardsArea.innerHTML = "";
 
 
@@ -105,7 +113,7 @@ function futureData(cityData) {
 
 
         let iconUrl = `<img src= "http://openweathermap.org/img/wn/${futureArray[i].weather[0].icon}@2x.png"/>`
-        console.log(iconUrl)
+        // console.log(iconUrl)
 
 
         let temp = document.createElement("h5")
@@ -121,10 +129,11 @@ function futureData(cityData) {
         wind.textContent = "wind"
         cardContent.appendChild(wind)
 
-        console.log(futureArray[i].dt)
-        console.log(futureArray[i].temp.day + "℉");
-        console.log(futureArray[i].wind_speed + " MPH");
-        console.log(futureArray[i].humidity + " %");
+        // console.log(futureArray[i].dt)
+        // console.log(futureArray[i].temp.day + "℉");
+        // console.log(futureArray[i].wind_speed + " MPH");
+        // console.log(futureArray[i].humidity + " %");
+
         cardsArea.appendChild(cardContent);
 
         cardContent.innerHTML = `
@@ -140,3 +149,4 @@ function futureData(cityData) {
         `
     }
 }
+console.log(cityHistory)
