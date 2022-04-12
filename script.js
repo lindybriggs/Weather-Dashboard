@@ -41,6 +41,7 @@ searchButton.addEventListener("click", function () {
 function pullCurrentData(cityData) {
 
     console.log(cityData);
+    console.log(cityData.current.weather[0].icon)
     console.log(cityData.current.temp);
     console.log(cityData.current.wind_speed);
     console.log(cityData.current.humidity);
@@ -50,6 +51,10 @@ function pullCurrentData(cityData) {
     let date = (currentDate.format('MMM Do YY'))
     document.querySelector("#cityCurrent").innerText = cityInput.value + ", " + date;
 
+    let iconUrl = `<img src= "http://openweathermap.org/img/wn/${cityData.current.weather[0].icon}@2x.png"/>`
+    console.log(iconUrl)
+    
+    document.querySelector("#currentIcon").innerHTML = iconUrl
     document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
     document.querySelector("#wind").innerText = "Wind: " + cityData.current.wind_speed + " MPH"
     document.querySelector("#humidity").innerText = "Humidity: " + cityData.current.humidity + " %"
@@ -75,10 +80,10 @@ function futureData(cityData) {
         let cardContent = document.createElement("div")
 
 
-    let icon = document.createElement("i")
-    icon.setAttribute("src", `http://openweathermap.org/img/wn/${futureArray[i].weather[0].icon}@2x.png`)
-    console.log(futureArray[i].weather[0].icon)
-    cardContent.appendChild(icon)
+    // let icon = document.createElement("i")
+    let iconUrl = `<img src= "http://openweathermap.org/img/wn/${futureArray[i].weather[0].icon}@2x.png"/>`
+    console.log(iconUrl)
+    // cardContent.appendChild(icon)
 
         let temp = document.createElement("h5")
         temp.textContent = futureArray[i].temp.day + "℉"
@@ -103,7 +108,7 @@ function futureData(cityData) {
         <div >
         <div class="card custom-card">
             <h3 class="card-header futureDate" style="font-size: 0.9rem">${moment.unix(futureArray[i].dt).format("l")}</h3>
-            <i class="futureIcon">${futureArray[i].weather[0].icon}</i>
+            <p>${iconUrl}</p>
             <h5 class="tempFuture" style="font-size: 0.9rem">Temp: ${futureArray[i].temp.day + "℉"}</h5>
             <h5 class="windFuture" style="font-size: 0.9rem">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
             <h5 class="humidityFuture" style="font-size: 0.9rem">Humidity: ${futureArray[i].humidity + " %"}</h5>

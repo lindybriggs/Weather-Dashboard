@@ -7,3 +7,7 @@ header {
     font-weight: 600;
     padding: 1rem;
   }
+
+img {
+  max-width: 4rem;
+}
