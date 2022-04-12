@@ -13,13 +13,18 @@
 let searchButton = document.querySelector("#search")
 let cityInput = document.querySelector("#city")
 
-searchButton.addEventListener("click", function () {
+searchButton.addEventListener("click", function (event) {
+    event.preventDefault();
     console.log(cityInput.value)
 
+    localStorage.setItem("searchedCity", JSON.stringify(cityInput.value))
+    console.log(localStorage);
+    console.log(localStorage.searchedCity);
+    console.log(JSON.parse(localStorage.searchedCity));
 
     let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
 
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityInput.value}&appid=${apiKey}`)
         .then(response => response.json())
         .then(geoData => {
 
@@ -58,8 +63,18 @@ function pullCurrentData(cityData) {
     document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
     document.querySelector("#wind").innerText = "Wind: " + cityData.current.wind_speed + " MPH"
     document.querySelector("#humidity").innerText = "Humidity: " + cityData.current.humidity + " %"
-    document.querySelector("#uv").innerText = "UV Index: " + cityData.current.uvi
-}
+    document.querySelector("#uv").innerText = "UV Index: " 
+    let index = `<span id="uvColor" class="px-2 py-2 rounded">${cityData.current.uvi}</span>`
+    $("#uv").append(index)
+
+        if (cityData.current.uvi >= 0 && cityData.current.uvi <=2){
+            $("#uvColor").css("background-color", "green").css("color", "white");
+        } else if (cityData.current.uvi >= 3 && cityData.current.uvi <=5){
+            $("#uvColor").css("background-color", "yellow").css("color", "white");
+        } else {
+            $("#uvColor").css("background-color", "red").css("color", "white");
+        }
+}       
 
 function futureData(cityData) {
 
