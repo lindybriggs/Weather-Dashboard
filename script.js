@@ -22,6 +22,11 @@ if (localStorage.searchedCity !== undefined) {
 
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
+    mainFunction()
+})
+
+function mainFunction() {
+
     console.log(cityInput.value)
 
     cityHistory.push(cityInput.value)
@@ -54,7 +59,7 @@ searchButton.addEventListener("click", function (event) {
 
         })
 
-})
+}
 
 function pullCurrentData(cityData) {
 
@@ -148,7 +153,7 @@ function futureData(cityData) {
 }
 
 
-function saveHistory(cityHistory){
+function saveHistory(cityHistory) {
     historyArea.innerHTML = "";
 
     for (let i = 0; i < cityHistory.length; i++) {
@@ -160,7 +165,21 @@ function saveHistory(cityHistory){
         pastButton.classList.add("display")
         historyArea.prepend(pastButton);
 
+        console.log(pastButton.textContent)
+
     }
 }
 
 console.log(cityHistory)
+
+historyArea.addEventListener("click", function (event) {
+    event.preventDefault();
+    var element = event.target;
+
+    if (element.matches("button") === true) {
+        console.log(element.parentElement)
+    }
+    let buttonCity = $(this).text();
+    console.log(buttonCity)
+    mainFunction(buttonCity)
+})
