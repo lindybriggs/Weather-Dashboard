@@ -1,14 +1,4 @@
 // GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
 
 let searchButton = document.querySelector("#search")
 let cityInput = document.querySelector("#city")
@@ -20,6 +10,8 @@ if (localStorage.searchedCity !== undefined) {
     cityHistory = JSON.parse(localStorage.searchedCity)
 }
 
+// WHEN I search for a city
+// THEN I am presented with current and future conditions for that city and that city is added to the search history
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     mainFunction()
@@ -41,7 +33,7 @@ function mainFunction() {
 
     let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
 
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityInput.value}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityInput.value}&appid=${apiKey}`)
         .then(response => response.json())
         .then(geoData => {
 
@@ -61,6 +53,8 @@ function mainFunction() {
 
 }
 
+// WHEN I view current weather conditions for that city
+// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 function pullCurrentData(cityData) {
 
     // console.log(cityData);
@@ -85,6 +79,8 @@ function pullCurrentData(cityData) {
     let index = `<span id="uvColor" class="px-2 py-2 rounded">${cityData.current.uvi}</span>`
     $("#uv").append(index)
 
+// WHEN I view the UV index
+// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
     if (cityData.current.uvi >= 0 && cityData.current.uvi <= 2) {
         $("#uvColor").css("background-color", "green").css("color", "white");
     } else if (cityData.current.uvi >= 2 && cityData.current.uvi <= 5) {
@@ -94,6 +90,8 @@ function pullCurrentData(cityData) {
     }
 }
 
+// WHEN I view future weather conditions for that city
+// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 function futureData(cityData) {
 
     let futureHeader = document.querySelector("#futureHeader");
@@ -152,7 +150,8 @@ function futureData(cityData) {
     }
 }
 
-
+// WHEN I click on a city in the search history
+// THEN I am again presented with current and future conditions for that city
 function saveHistory(cityHistory) {
     historyArea.innerHTML = "";
 
