@@ -13,14 +13,22 @@
 let searchButton = document.querySelector("#search")
 let cityInput = document.querySelector("#city")
 
+
+let cityHistory = [];
+    if (localStorage.searchedCity !== undefined){
+        cityHistory = JSON.parse(localStorage.searchedCity)
+    }
+
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     console.log(cityInput.value)
 
-    localStorage.setItem("searchedCity", JSON.stringify(cityInput.value))
+    cityHistory.push(cityInput.value)
+
+    localStorage.setItem("searchedCity", JSON.stringify(cityHistory))
     console.log(localStorage);
     console.log(localStorage.searchedCity);
-    console.log(JSON.parse(localStorage.searchedCity));
+
 
     let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
 
@@ -89,6 +97,7 @@ function futureData(cityData) {
 
     let cardsArea = document.querySelector("#cityFuture");
     console.log(cardsArea);
+    cardsArea.innerHTML = "";
 
 
     for (let i = 0; i < 6; i++) {
