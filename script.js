@@ -31,10 +31,7 @@ searchButton.addEventListener("click", function (event) {
     console.log(localStorage.searchedCity);
     console.log(cityHistory);
 
-    let pastButton = document.createElement("button")
-    pastButton.textContent = cityHistory[0];
-    pastButton.classList.add("btn-light");
-    historyArea.appendChild(pastButton);
+    saveHistory(cityHistory);
 
 
     let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
@@ -149,4 +146,22 @@ function futureData(cityData) {
         `
     }
 }
+
+
+function saveHistory(cityHistory){
+    historyArea.innerHTML = "";
+
+    for (let i = 0; i < cityHistory.length; i++) {
+
+        let pastButton = document.createElement("button")
+        pastButton.textContent = cityHistory[i];
+        pastButton.classList.add("btn-light");
+        pastButton.classList.add("col-md-10")
+        historyArea.appendChild(pastButton);
+
+    }
+}
+
+
+
 console.log(cityHistory)
