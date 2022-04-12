@@ -15,9 +15,9 @@ let cityInput = document.querySelector("#city")
 
 
 let cityHistory = [];
-    if (localStorage.searchedCity !== undefined){
-        cityHistory = JSON.parse(localStorage.searchedCity)
-    }
+if (localStorage.searchedCity !== undefined) {
+    cityHistory = JSON.parse(localStorage.searchedCity)
+}
 
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
@@ -66,23 +66,23 @@ function pullCurrentData(cityData) {
 
     let iconUrl = `<img src= "http://openweathermap.org/img/wn/${cityData.current.weather[0].icon}@2x.png"/>`
     console.log(iconUrl)
-    
+
     document.querySelector("#currentIcon").innerHTML = iconUrl
     document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
     document.querySelector("#wind").innerText = "Wind: " + cityData.current.wind_speed + " MPH"
     document.querySelector("#humidity").innerText = "Humidity: " + cityData.current.humidity + " %"
-    document.querySelector("#uv").innerText = "UV Index: " 
+    document.querySelector("#uv").innerText = "UV Index: "
     let index = `<span id="uvColor" class="px-2 py-2 rounded">${cityData.current.uvi}</span>`
     $("#uv").append(index)
 
-        if (cityData.current.uvi >= 0 && cityData.current.uvi <=2){
-            $("#uvColor").css("background-color", "green").css("color", "white");
-        } else if (cityData.current.uvi >= 3 && cityData.current.uvi <=5){
-            $("#uvColor").css("background-color", "yellow").css("color", "white");
-        } else {
-            $("#uvColor").css("background-color", "red").css("color", "white");
-        }
-}       
+    if (cityData.current.uvi >= 0 && cityData.current.uvi <= 2) {
+        $("#uvColor").css("background-color", "green").css("color", "white");
+    } else if (cityData.current.uvi >= 3 && cityData.current.uvi <= 5) {
+        $("#uvColor").css("background-color", "yellow").css("color", "black");
+    } else {
+        $("#uvColor").css("background-color", "red").css("color", "white");
+    }
+}
 
 function futureData(cityData) {
 
@@ -104,10 +104,9 @@ function futureData(cityData) {
         let cardContent = document.createElement("div")
 
 
-    // let icon = document.createElement("i")
-    let iconUrl = `<img src= "http://openweathermap.org/img/wn/${futureArray[i].weather[0].icon}@2x.png"/>`
-    console.log(iconUrl)
-    // cardContent.appendChild(icon)
+        let iconUrl = `<img src= "http://openweathermap.org/img/wn/${futureArray[i].weather[0].icon}@2x.png"/>`
+        console.log(iconUrl)
+
 
         let temp = document.createElement("h5")
         temp.textContent = futureArray[i].temp.day + "℉"
