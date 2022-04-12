@@ -156,12 +156,11 @@ function saveHistory(cityHistory){
         let pastButton = document.createElement("button")
         pastButton.textContent = cityHistory[i];
         pastButton.classList.add("btn-light");
-        pastButton.classList.add("col-md-10")
-        historyArea.appendChild(pastButton);
+        pastButton.classList.add("col-md-12");
+        pastButton.classList.add("display")
+        historyArea.prepend(pastButton);
 
     }
 }
-
-
 
 console.log(cityHistory)

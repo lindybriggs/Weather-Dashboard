@@ -11,3 +11,8 @@ header {
 img {
   max-width: 4rem;
 }
+
+.display {
+  display: block;
+  padding: 0.5rem 0 0.5rem 0;
+}
