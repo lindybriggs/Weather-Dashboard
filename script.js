@@ -11,34 +11,34 @@
 // THEN I am again presented with current and future conditions for that city
 
 let searchButton = document.querySelector("#search")
-let cityInput =  document.querySelector("#city")
+let cityInput = document.querySelector("#city")
 
-searchButton.addEventListener("click", function(){
+searchButton.addEventListener("click", function () {
     console.log(cityInput.value)
 
 
-let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
+    let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
 
-fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
-    .then(response => response.json())
-    .then(geoData => {
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=Chicago&appid=${apiKey}`)
+        .then(response => response.json())
+        .then(geoData => {
 
-        
-        return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}&exclude=hourly,minutely&units=imperial`)
-    })
 
-    .then(response => response.json())
-    .then(cityData => {
+            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}&exclude=hourly,minutely&units=imperial`)
+        })
 
-        console.log(cityData);
-        pullCurrentData(cityData);
-        futureData(cityData);
+        .then(response => response.json())
+        .then(cityData => {
 
-    })
+            console.log(cityData);
+            pullCurrentData(cityData);
+            futureData(cityData);
+
+        })
 
 })
 
-function pullCurrentData(cityData){
+function pullCurrentData(cityData) {
 
     console.log(cityData);
     console.log(cityData.current.temp);
@@ -46,17 +46,21 @@ function pullCurrentData(cityData){
     console.log(cityData.current.humidity);
     console.log(cityData.current.uvi);
 
-        let currentDate = moment()
-        let date = (currentDate.format('MMM Do YY'))
-        document.querySelector("#cityCurrent").innerText = cityInput.value + ", " + date;
+    let currentDate = moment()
+    let date = (currentDate.format('MMM Do YY'))
+    document.querySelector("#cityCurrent").innerText = cityInput.value + ", " + date;
 
     document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
     document.querySelector("#wind").innerText = "Wind: " + cityData.current.wind_speed + " MPH"
     document.querySelector("#humidity").innerText = "Humidity: " + cityData.current.humidity + " %"
-    document.querySelector("#uv").innerText = "UV Index: " + cityData.current.uvi 
+    document.querySelector("#uv").innerText = "UV Index: " + cityData.current.uvi
 }
 
-function futureData(cityData){
+function futureData(cityData) {
+
+    let futureHeader = document.querySelector("#futureHeader");
+    futureHeader.innerHTML = "5-Day Forecast";
+
     console.log(cityData.daily);
     let futureArray8 = cityData.daily;
     let futureArray = futureArray8.slice(1);
@@ -65,10 +69,16 @@ function futureData(cityData){
 
     let cardsArea = document.querySelector("#cityFuture");
     console.log(cardsArea);
-   
+
 
     for (let i = 0; i < 6; i++) {
         let cardContent = document.createElement("div")
+
+
+    let icon = document.createElement("i")
+    icon.setAttribute("src", `http://openweathermap.org/img/wn/${futureArray[i].weather[0].icon}@2x.png`)
+    console.log(futureArray[i].weather[0].icon)
+    cardContent.appendChild(icon)
 
         let temp = document.createElement("h5")
         temp.textContent = futureArray[i].temp.day + "℉"
@@ -78,11 +88,12 @@ function futureData(cityData){
         let humidity = document.createElement("h5")
         humidity.textContent = "humidity"
         cardContent.appendChild(humidity)
-        
+
         let wind = document.createElement("h5")
         wind.textContent = "wind"
         cardContent.appendChild(wind)
 
+        console.log(futureArray[i].dt)
         console.log(futureArray[i].temp.day + "℉");
         console.log(futureArray[i].wind_speed + " MPH");
         console.log(futureArray[i].humidity + " %");
@@ -91,11 +102,11 @@ function futureData(cityData){
         cardContent.innerHTML = `
         <div >
         <div class="card custom-card">
-            <h3 class="card-header futureDate">hellpo</h3>
-            <i class="futureIcon"></i>
-            <h5 class="tempFuture">Temp: ${futureArray[i].temp.day + "℉"}</h5>
-            <h5 class="windFuture">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
-            <h5 class="humidityFuture">Humidity: ${futureArray[i].humidity + " %"}</h5>
+            <h3 class="card-header futureDate" style="font-size: 0.9rem">${moment.unix(futureArray[i].dt).format("l")}</h3>
+            <i class="futureIcon">${futureArray[i].weather[0].icon}</i>
+            <h5 class="tempFuture" style="font-size: 0.9rem">Temp: ${futureArray[i].temp.day + "℉"}</h5>
+            <h5 class="windFuture" style="font-size: 0.9rem">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
+            <h5 class="humidityFuture" style="font-size: 0.9rem">Humidity: ${futureArray[i].humidity + " %"}</h5>
         </div>
     </div>
         `

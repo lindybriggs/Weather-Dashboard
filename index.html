@@ -27,7 +27,7 @@
 
     <main class="container">
         <div class="row">
-            <section class="col-12 col-md-3">
+            <section class="col-12 col-md-3 my-4">
                 <div class="card custom-card">
                     <h3 class="card-header">Search for a City: </h3>
                     <input id="city" type="text">
@@ -36,16 +36,17 @@
                     </div>
                 </div>
             </section>
-            <section class="col-12 col-md-9">
-                <section>
+            <section class="col-12 col-md-9 my-4">
+                <section class="p-2">
                     <h3 id="cityCurrent"></h3>
                     <h6 id="temp"></h6>
                     <h6 id="wind"></h6>
                     <h6 id="humidity"></h6>
                     <h6 id="uv"></h6>
                 </section>
-                <section class="row align-items-end justify-content-around">
-                    <div id="cityFuture" class="d-flex"></div>
+                <section class="row">
+                    <h3 id="futureHeader" class=" my-4"></h3>
+                    <div id="cityFuture" class="d-flex justify-content-around"></div>
                 </section>
         </div>
     </main>
