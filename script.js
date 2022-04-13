@@ -149,8 +149,7 @@ function futureData(cityData) {
     }
 }
 
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
+// Build search history using local storage from above
 function saveHistory(cityHistory) {
     historyArea.innerHTML = "";
 
@@ -168,16 +167,57 @@ function saveHistory(cityHistory) {
     }
 }
 
-console.log(cityHistory)
+// console.log(cityHistory)
 
-historyArea.addEventListener("click", function (event) {
-    event.preventDefault();
-    var element = event.target;
+// WHEN I click on a city in the search history
+// THEN I am again presented with current and future conditions for that city
+$(document).on("click", ".display", function(){
+        let buttonCity = $(this).text();
+        console.log(buttonCity);
+        reSearchFunction(buttonCity)
 
-    if (element.matches("button") === true) {
-        console.log(element.parentElement)
-    }
-    let buttonCity = $(this).text();
-    console.log(buttonCity)
-    mainFunction(buttonCity)
+        function reSearchFunction(buttonCity) {
+
+            let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
+        
+            fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${buttonCity}&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(geoData => {
+        
+                    return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=${apiKey}&exclude=hourly,minutely&units=imperial`)
+                })
+        
+                .then(response => response.json())
+                .then(cityData => {
+        
+                    rePullCurrentData(cityData);
+                    futureData(cityData);
+        
+                })
+        
+        }
+        function rePullCurrentData(cityData) {
+        
+            let currentDate = moment()
+            let date = (currentDate.format('MMM Do YY'))
+            document.querySelector("#cityCurrent").innerText = buttonCity + ", " + date;
+        
+            let iconUrl = `<img src= "http://openweathermap.org/img/wn/${cityData.current.weather[0].icon}@2x.png"/>`
+        
+            document.querySelector("#currentIcon").innerHTML = iconUrl
+            document.querySelector("#temp").innerText = "Temp: " + cityData.current.temp + "℉"
+            document.querySelector("#wind").innerText = "Wind: " + cityData.current.wind_speed + " MPH"
+            document.querySelector("#humidity").innerText = "Humidity: " + cityData.current.humidity + " %"
+            document.querySelector("#uv").innerText = "UV Index: "
+            let index = `<span id="uvColor" class="px-2 py-2 rounded">${cityData.current.uvi}</span>`
+            $("#uv").append(index)
+        
+            if (cityData.current.uvi >= 0 && cityData.current.uvi <= 2) {
+                $("#uvColor").css("background-color", "green").css("color", "white");
+            } else if (cityData.current.uvi >= 2 && cityData.current.uvi <= 5) {
+                $("#uvColor").css("background-color", "yellow").css("color", "black");
+            } else {
+                $("#uvColor").css("background-color", "red").css("color", "white");
+            }
+        }
 })

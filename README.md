@@ -10,7 +10,7 @@
 
 ## Screenshot
 
-![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/101146153/163070050-8a83bed1-5dfd-410b-8fd2-057935fb4311.gif)
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/101146153/163195355-42b1be43-c190-48d4-8cb0-b0b7e3a32fc5.gif)
 
 ## Link to Deployed Application
 
