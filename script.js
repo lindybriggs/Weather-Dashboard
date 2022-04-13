@@ -15,6 +15,7 @@ if (localStorage.searchedCity !== undefined) {
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     mainFunction()
+    saveHistory(cityHistory);
 })
 
 function mainFunction() {
@@ -27,8 +28,6 @@ function mainFunction() {
     console.log(localStorage);
     console.log(localStorage.searchedCity);
     console.log(cityHistory);
-
-    saveHistory(cityHistory);
 
 
     let apiKey = "5de95534471d1fc692031cdf2cecb3b3";
