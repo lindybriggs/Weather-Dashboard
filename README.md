@@ -2,7 +2,7 @@
 
 ## Description
 
-* Successfully deployed application that retrieves weather data for a given city. When searching for a city, user is presented with current and future conditions along with corresponding dates. In the current condition, a color represents whether the UV Index is favorable, moderate, or severe. Weather icons are used for current and future dates, visually representing the overall weather state. Previously searched cities are stored below the input using local storage. When clicked, those cities can be re-searched.
+* Successfully deployed application that retrieves weather data for a given city using OpenWeather APIs. When searching for a city, user is presented with current and future conditions along with corresponding dates. In the current condition, a color represents whether the UV Index is favorable, moderate, or severe. Weather icons are used for current and future dates, visually representing the overall weather state. Previously searched cities are stored below the input using local storage. When clicked, those cities can be re-searched.
 
 * Created a repo on github with necessary files, including: a README, an HTML file, JS file, etc.
 
