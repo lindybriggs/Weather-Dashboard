@@ -67,6 +67,7 @@ function pullCurrentData(cityData, searchCity) {
     // console.log(cityData.current.wind_speed);
     // console.log(cityData.current.humidity);
     // console.log(cityData.current.uvi);
+    document.querySelector("#currentArea").classList.add("currentBorder")
 
     let currentDate = moment()
     let date = (currentDate.format('MMM Do YY'))
@@ -112,7 +113,7 @@ function futureData(cityData) {
     cardsArea.innerHTML = "";
 
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         let cardContent = document.createElement("div")
 
 
@@ -142,12 +143,12 @@ function futureData(cityData) {
 
         cardContent.innerHTML = `
         <div >
-        <div class="card custom-card">
-            <h3 class="card-header futureDate" style="font-size: 0.9rem">${moment.unix(futureArray[i].dt).format("l")}</h3>
+        <div class="card custom-card forecastColor">
+            <h2 class="futureDate whiteText" style="font-size: 0.9rem">${moment.unix(futureArray[i].dt).format("l")}</h2>
             <p>${iconUrl}</p>
-            <h5 class="tempFuture" style="font-size: 0.9rem">Temp: ${futureArray[i].temp.day + "℉"}</h5>
-            <h5 class="windFuture" style="font-size: 0.9rem">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
-            <h5 class="humidityFuture" style="font-size: 0.9rem">Humidity: ${futureArray[i].humidity + " %"}</h5>
+            <h5 class="tempFuture whiteText" style="font-size: 0.9rem">Temp: ${futureArray[i].temp.day + "℉"}</h5>
+            <h5 class="windFuture whiteText" style="font-size: 0.9rem">Wind: ${futureArray[i].wind_speed + " MPH"}</h5>
+            <h5 class="humidityFuture whiteText" style="font-size: 0.9rem">Humidity: ${futureArray[i].humidity + " %"}</h5>
         </div>
     </div>
         `
@@ -163,7 +164,7 @@ function saveHistory() {
         let pastButton = document.createElement("button")
         pastButton.textContent = cityHistory[i];
         pastButton.classList.add("btn-light");
-        pastButton.classList.add("col-md-12");
+        pastButton.classList.add("col-md-11");
         pastButton.classList.add("display")
         historyArea.prepend(pastButton);
 

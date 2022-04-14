@@ -15,4 +15,20 @@ img {
 .display {
   display: block;
   padding: 0.5rem 0 0.5rem 0;
+  margin: 0.5rem;
+  border-radius: 0.3rem;
+  background-color: lightgray;
+}
+
+.currentBorder {
+  border: thin solid black;
+}
+
+.forecastColor {
+  background-color: rgb(56, 68, 92);
+  padding: 0.5rem;
+}
+
+.whiteText {
+  color: white;
 }
