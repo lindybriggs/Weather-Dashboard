@@ -12,6 +12,6 @@
 
 ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/101146153/163195355-42b1be43-c190-48d4-8cb0-b0b7e3a32fc5.gif)
 
-## Link to Deployed Application
+## Link
 
-https://lindybriggs.github.io/hw-6-weather/
+Visit the deployed application [here](https://lindybriggs.github.io/Weather-Dashboard/).
